@@ -40,7 +40,7 @@ public class Vars {
     /**
      * Discord and mindustry command handlers
      **/
-    public static CommandHandler clientCommands, serverCommands, discordCommands;
+    public static CommandHandler clientCommands, serverCommands, discordCommands, outlineCommands;
     public static double rtvRatio = 0.6;
     public static HashSet<String> rtvVotes = new HashSet<>();
     public static boolean rtvEnabled = true;

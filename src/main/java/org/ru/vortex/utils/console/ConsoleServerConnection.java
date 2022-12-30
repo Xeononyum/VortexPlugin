@@ -1,11 +1,13 @@
 package org.ru.vortex.utils.console;
 
 
+import arc.util.CommandHandler;
 import arc.util.Log;
 
 import java.io.*;
 import java.net.Socket;
 
+import static org.ru.vortex.Vars.outlineCommands;
 import static org.ru.vortex.Vars.outlinePassword;
 
 public class ConsoleServerConnection extends Thread {
@@ -35,6 +37,19 @@ public class ConsoleServerConnection extends Thread {
             while (true) {
                 input = in.readLine();
                 Log.debug("[REMOTE_CONSOLE]" + "{IN_}" + " |>| " + input);
+                CommandHandler.CommandResponse r = outlineCommands.handleMessage(input,this);
+
+                //switch не пройдет
+                if(r.type == CommandHandler.ResponseType.noCommand){
+                    Log.info("[REMOTE_CONSOLE] |<|>| "+input);
+                    // TODO: 30.12.2022 response to remote
+                } else if (r.type == CommandHandler.ResponseType.fewArguments) {
+                    // TODO: 30.12.2022 response to remote
+                } else if (r.type == CommandHandler.ResponseType.manyArguments) {
+                    // TODO: 30.12.2022 response to remote
+                } else if (r.type == CommandHandler.ResponseType.valid) {
+                    // TODO: 30.12.2022 response to remote
+                }
                 //todo handleInput
             }
         } catch (Exception e) {
