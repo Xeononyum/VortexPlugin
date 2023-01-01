@@ -4,6 +4,7 @@ import arc.util.CommandHandler;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import org.ru.vortex.modules.Config;
+import org.ru.vortex.modules.database.Database;
 
 import java.util.HashSet;
 

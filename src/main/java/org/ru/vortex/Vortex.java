@@ -7,6 +7,7 @@ import mindustry.core.Version;
 import mindustry.mod.Plugin;
 import org.ru.vortex.commands.ClientCommands;
 import org.ru.vortex.modules.Config;
+import org.ru.vortex.modules.database.Database;
 import org.ru.vortex.modules.discord.Bot;
 
 import static mindustry.Vars.netServer;
@@ -34,6 +35,7 @@ public class Vortex extends Plugin {
         Time.mark();
 
         Config.init();
+        Database.connect();
         Bot.init();
 
         Version.build = -1;
