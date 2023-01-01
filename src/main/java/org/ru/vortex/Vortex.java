@@ -25,6 +25,7 @@ public class Vortex extends Plugin {
             public void dispose() {
                 Bot.disconnect();
                 netServer.kickAll(serverRestarting);
+                Log.infoTag("Shutdown", "The server will now be shut down!");
             }
         });
     }

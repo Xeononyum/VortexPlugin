@@ -1,10 +1,12 @@
 package org.ru.vortex.modules.discord;
 
 import arc.util.Log;
+import arc.util.Strings;
+import mindustry.gen.Call;
 import mindustry.gen.Groups;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.JDABuilder;
-import net.dv8tion.jda.api.entities.Role;
+import net.dv8tion.jda.api.entities.*;
 import net.dv8tion.jda.api.entities.channel.middleman.MessageChannel;
 import net.dv8tion.jda.api.utils.ChunkingFilter;
 import net.dv8tion.jda.api.utils.cache.CacheFlag;
@@ -12,6 +14,7 @@ import net.dv8tion.jda.api.utils.messages.MessageRequest;
 
 import java.util.EnumSet;
 
+import static arc.util.Log.infoTag;
 import static arc.util.Strings.format;
 import static arc.util.Strings.stripColors;
 import static mindustry.Vars.state;
@@ -38,6 +41,7 @@ public class Bot {
                     .disableIntents(GUILD_MESSAGE_TYPING, GUILD_PRESENCES)
                     .setLargeThreshold(50)
                     .enableIntents(MESSAGE_CONTENT, GUILD_MEMBERS)
+                    .addEventListeners(new Listener())
                     .build()
                     .awaitReady();
 
@@ -52,7 +56,7 @@ public class Bot {
                     .findFirst()
                     .ifPresent(guild -> guild.getSelfMember().modifyNickname(format("[@] @", config.prefix, jda.getSelfUser().getName())));
 
-            Log.infoTag("Discord", format("Bot connected in as @", jda.getSelfUser().getAsTag()));
+            infoTag("Discord", format("Bot connected in as @", jda.getSelfUser().getAsTag()));
         } catch (InterruptedException e) {
             Log.errTag("Discord", format("Cannot connect to discord: @", e));
         }
@@ -72,7 +76,11 @@ public class Bot {
             jda.getPresence().setActivity(watching(format("at @ players on @", Groups.player.size(), stripColors(state.map.name()))));
     }
 
-    public static void handle() {
+    public static void sendMessageToGame(Member member, Message message) {
+        var nickname = member.getUser().getAsTag();
+        var rawContent = message.getContentRaw();
 
+        infoTag("Discord", Strings.format("@: @", nickname, rawContent));
+        Call.sendMessage(Strings.format("[blue][Discord][][orange][[]@[orange]:[]@[]", nickname, rawContent));
     }
 }

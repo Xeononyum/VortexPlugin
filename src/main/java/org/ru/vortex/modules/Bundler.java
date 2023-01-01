@@ -17,15 +17,11 @@ public class Bundler {
     }
 
     public static void sendLocalizedAll(String key) {
-        Groups.player.each(player -> {
-            sendLocalized(player, key);
-        });
+        Groups.player.each(player -> sendLocalized(player, key));
     }
 
     public static void sendLocalizedAll(String key, Object... objects) {
-        Groups.player.each(player -> {
-            sendLocalized(player, key, objects);
-        });
+        Groups.player.each(player -> sendLocalized(player, key, objects));
     }
 
     public static String getLocalized(Player player, String key, Object... objects) {
