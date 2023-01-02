@@ -9,6 +9,7 @@ import org.ru.vortex.commands.ClientCommands;
 import org.ru.vortex.modules.Config;
 import org.ru.vortex.modules.database.Database;
 import org.ru.vortex.modules.discord.Bot;
+import org.ru.vortex.modules.history.History;
 
 import static mindustry.Vars.netServer;
 import static mindustry.net.Packets.KickReason.serverRestarting;
@@ -36,6 +37,7 @@ public class Vortex extends Plugin {
         Time.mark();
 
         Config.init();
+        History.init();
         Database.connect();
         Bot.init();
 

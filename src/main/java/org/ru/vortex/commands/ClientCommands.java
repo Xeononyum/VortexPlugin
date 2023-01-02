@@ -12,6 +12,7 @@ import org.ru.vortex.utils.Timeouts;
 
 import static mindustry.gen.Call.openURI;
 import static org.ru.vortex.Vars.*;
+import static org.ru.vortex.modules.history.History.enabledHistory;
 
 public class ClientCommands {
     public static void init() {
@@ -40,13 +41,22 @@ public class ClientCommands {
             Bundler.sendLocalizedAll("commands.rtv.vote-passed");
             Events.fire(new EventType.GameOverEvent(Team.crux));
         });
+
+        register("history", (args, player) -> {
+            if (enabledHistory.contains(player)) {
+                enabledHistory.remove(player);
+                return;
+            };
+
+            enabledHistory.add(player);
+        });
     }
 
     private static void register(String name, CommandRunner<Player> runner) {
         clientCommands.<Player>register(
                 name,
-                Bundler.getLocalized(Strings.format("commands.@.parameters")),
-                Bundler.getLocalized(Strings.format("commands.@.description")),
+                Bundler.getLocalized(Strings.format("commands.@.parameters", name)),
+                Bundler.getLocalized(Strings.format("commands.@.description", name)),
                 (args, player) -> {
                     if (Timeouts.hasTimeout(player, name)) return;
                     runner.accept(args, player);
