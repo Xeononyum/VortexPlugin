@@ -6,8 +6,7 @@ public class PlayerData {
 
 
     @SuppressWarnings("unused")
-    public PlayerData() {
-    }
+    public PlayerData() {}
 
     public PlayerData(String uuid) {
         this.uuid = uuid;
